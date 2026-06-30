@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Tra Cứu Lớp 6S1B - Trung Tâm Thăng Long</title>
+    <link rel="icon" type="image/png" href="logo-tab.png">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+        }
+
+        body { 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background-color: #e5ecf4; 
+            padding: 24px; 
+        }
+
+        .container-wrapper { 
+            width: 100%; 
+            max-width: 440px; 
+            text-align: center; 
+        }
+
+        .brand-section { 
+            margin-bottom: 25px; 
+        }
+
+        .brand-logo { 
+            width: 100px; 
+            height: 100px; 
+            object-fit: cover; 
+            border-radius: 50%; 
+            background: #e5ecf4; 
+            padding: 6px; 
+            box-shadow: 6px 6px 12px #c2cbd6, -6px -6px 12px #ffffff;
+            transition: transform 0.3s ease;
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .brand-name { 
+            font-size: 18px; 
+            font-weight: 700; 
+            color: #2c3e50; 
+            margin-top: 15px; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+        }
+
+        .login-card { 
+            background: #e5ecf4; 
+            border-radius: 28px; 
+            padding: 40px 30px; 
+            box-shadow: 9px 9px 18px #c2cbd6, -9px -9px 18px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: left; 
+        }
+
+        .login-title { 
+            font-size: 26px; 
+            font-weight: 800; 
+            color: #1a365d; 
+            margin-bottom: 6px; 
+            text-align: center; 
+            text-transform: uppercase;
+        }
+
+        .login-subtitle { 
+            font-size: 14px; 
+            color: #606f7b; 
+            margin-bottom: 25px; 
+            text-align: center; 
+            font-weight: 600; 
+        }
+
+        .input-group { 
+            margin-bottom: 20px; 
+        }
+
+        .input-group label { 
+            display: block; 
+            font-size: 14px; 
+            font-weight: 700; 
+            color: #4a5568; 
+            margin-bottom: 8px; 
+        }
+
+        .input-group input { 
+            width: 100%; 
+            padding: 14px 16px; 
+            font-size: 15px; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            border-radius: 12px; 
+            color: #334155; 
+            outline: none; 
+            background: #e5ecf4; 
+            box-shadow: inset 4px 4px 6px #c2cbd6, inset -4px -4px 6px #ffffff;
+            transition: all 0.3s ease; 
+        }
+
+        .input-group input:focus { 
+            border-color: #3182ce; 
+            box-shadow: inset 2px 2px 4px #c2cbd6, inset -2px -2px 4px #ffffff, 0 0 0 3px rgba(49, 130, 206, 0.2); 
+        }
+
+        .btn-submit { 
+            width: 100%; 
+            padding: 15px; 
+            background: #e5ecf4; 
+            color: #1a365d; 
+            border: 1px solid rgba(255, 255, 255, 0.7); 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            text-align: center; 
+            box-shadow: 5px 5px 10px #c2cbd6, -5px -5px 10px #ffffff;
+            transition: all 0.25s ease; 
+        }
+
+        .btn-submit:hover { 
+            color: #2b6cb0;
+            transform: translateY(-2px); 
+            box-shadow: 7px 7px 14px #b8c2cc, -7px -7px 14px #ffffff;
+        }
+
+        .container { 
+            max-width: 480px; 
+            width: 100%; 
+            background: #e5ecf4; 
+            padding: 35px 25px; 
+            border-radius: 28px; 
+            box-shadow: 9px 9px 18px #c2cbd6, -9px -9px 18px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: none; 
+            text-align: left; 
+            animation: slideUp 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-title { 
+            color: #1a365d; 
+            text-align: center; 
+            margin-bottom: 25px; 
+            font-size: 21px; 
+            text-transform: uppercase; 
+            font-weight: 800; 
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .month-tabs-container {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            scrollbar-width: thin;
+        }
+
+        .month-tabs {
+            display: flex;
+            gap: 10px;
+            width: max-content;
+            padding: 4px;
+        }
+
+        .tab-btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #4a5568;
+            background: #e5ecf4;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 3px 3px 6px #c2cbd6, -3px -3px 6px #ffffff;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: #3182ce;
+            box-shadow: inset 3px 3px 5px #c2cbd6, inset -3px -3px 5px #ffffff;
+            border-color: rgba(49, 130, 206, 0.2);
+        }
+
+        .student-info { 
+            background: #e5ecf4; 
+            padding: 20px; 
+            border-radius: 16px; 
+            margin-bottom: 25px; 
+            box-shadow: inset 4px 4px 8px #c2cbd6, inset -4px -4px 8px #ffffff;
+        }
+
+        .info-item { 
+            font-size: 15px; 
+            margin-bottom: 10px; 
+            color: #4a5568;
+            font-weight: 500;
+        }
+        .info-item strong { 
+            color: #1a365d; 
+            font-weight: 700;
+        }
+
+        .comment-section { 
+            background: #e5ecf4; 
+            border-left: 5px solid #3182ce; 
+            padding: 18px; 
+            margin-bottom: 20px; 
+            border-radius: 4px 16px 16px 4px; 
+            box-shadow: 5px 5px 12px #c2cbd6, -5px -5px 12px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .comment-title { 
+            font-weight: 700; 
+            color: #1a365d; 
+            margin-bottom: 6px; 
+            text-transform: uppercase; 
+            font-size: 13px; 
+            letter-spacing: 0.5px;
+        }
+
+        .comment-section p {
+            font-size: 14.5px;
+            color: #4a5568;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .back-btn { 
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px; 
+            color: #e53e3e; 
+            background: rgba(229, 62, 62, 0.05);
+            padding: 10px 24px;
+            border-radius: 12px;
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 14px;
+            transition: all 0.2s;
+            box-shadow: 3px 3px 6px #c2cbd6, -3px -3px 6px #ffffff;
+        }
+        .back-btn:hover {
+            background: rgba(229, 62, 62, 0.1);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-wrapper" class="container-wrapper">
+        <div class="brand-section">
+            <img src="logo-tab.png" alt="Logo Trung Tâm Thăng Long" class="brand-logo">
+            <div class="brand-name">TRUNG TÂM THĂNG LONG</div>
+        </div>
+        <div class="login-card">
+            <h2 class="login-title">Hệ Thống Tra Cứu</h2>
+            <p class="login-subtitle">Mã lớp học: 6S1B</p>
+            <div class="input-group">
+                <label>Tên đăng nhập:</label>
+                <input type="text" id="username" placeholder="Nhập đầy đủ họ tên học sinh">
+            </div>
+            <div class="input-group">
+                <label>Mật khẩu:</label>
+                <input type="password" id="password" placeholder="Nhập mật khẩu">
+            </div>
+            <button class="btn-submit" onclick="checkLogin()">Đăng nhập hệ thống</button>
+            <p id="error" style="color: #e53e3e; font-size: 14px; margin-top: 15px; text-align: center; display: none; font-weight: 700;">Tên học sinh hoặc mật khẩu không chính xác!</p>
+            
+            <center><a href="khoi6.html" style="display:inline-block; margin-top:25px; color:#606f7b; text-decoration:none; font-size:14px; font-weight:600;">⬅ Quay lại chọn lớp</a></center>
+        </div>
+    </div>
+
+    <div id="content-area" class="container">
+        <h1 class="header-title" id="dynamic-title">Kết Quả Học Tập Lớp 6S1B</h1>
+        
+        <div class="month-tabs-container">
+            <div class="month-tabs" id="tabs-list"></div>
+        </div>
+
+        <div class="student-info">
+            <div class="info-item"><strong>Họ và tên học sinh:</strong> <span id="s-name" style="color: #2b6cb0; font-weight: bold;"></span></div>
+            <div class="info-item"><strong>Lớp học tại trung tâm:</strong> Lớp Toán 6S1B</div>
+            <div class="info-item"><strong>Điểm số tháng chọn:</strong> <span id="s-score" style="color:#38a169; font-weight:bold;"></span></div>
+        </div>
+        
+        <div class="comment-section">
+            <div class="comment-title">Nhận xét chi tiết của giáo viên:</div>
+            <p id="s-nx"></p>
+        </div>
+        
+        <div class="comment-section" style="border-left-color: #38a169;">
+            <div class="comment-title">Lời khuyên / Định hướng của thầy cô:</div>
+            <p id="s-kh"></p>
+        </div>
+        
+        <center><a href="javascript:location.reload();" class="back-btn">❌ Thoát xem nhận xét</a></center>
+    </div>
+
+    <script>
+        const students = {
+            "nguyen minh triet": {
+                name: "Nguyễn Minh Triết",
+                months: {
+                    "thang06": { label: "Tháng 06/2026", điểm: "9.0/10", nx: "Em Triết học tập rất tập trung, tư duy hình học trực quan tốt, hăng hái phát biểu xây dựng bài.", kh: "Nên rèn luyện thêm cách trình bày tự luận cẩn thận để tránh mất điểm nhỏ." },
+                    "thang05": { label: "Tháng 05/2027", điểm: "9.6/10", nx: "Kết thúc năm học xuất sắc, hoàn thành toàn bộ chương trình Toán lớp 6 với kết quả vượt trội.", kh: "Chúc mừng em! Hãy dành thời gian nghỉ ngơi hợp lý và đọc trước sách toán lớp 7 nhé." }
+                }
+            },
+            "nguyen van a": {
+                name: "Nguyễn Văn A",
+                months: {
+                    "thang06": { label: "Tháng 06/2026", điểm: "8.0/10", nx: "Học sinh mới hòa nhập tốt với lớp, chăm chú lắng nghe và hoàn thành các bài tập cơ bản.", kh: "Cần rèn thêm các bài tập nâng cao để nâng cao phản xạ nhạy bén." }
+                }
+            }
+        };
+
+        let currentStudentData = null;
+
+        function locDau(str) {
+            str = str.toLowerCase().trim();
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
+            str = str.replace(/đ/g,"d");
+            str = str.replace(/\s+/g, ' ');
+            return str;
+        }
+
+        function checkLogin() {
+            const uInput = document.getElementById('username').value;
+            const pInput = document.getElementById('password').value;
+            const uKey = locDau(uInput);
+            
+            if (pInput === '123' && students[uKey]) {
+                confetti({ particleCount: 125, spread: 80, origin: { y: 0.6 } }); 
+                currentStudentData = students[uKey];
+                
+                document.getElementById('login-wrapper').style.setProperty('display', 'none', 'important');
+                document.getElementById('content-area').style.display = 'block';
+                document.getElementById('s-name').innerText = currentStudentData.name;
+                document.getElementById('dynamic-title').innerText = "Kết Quả Học Tập " + currentStudentData.name + " - Lớp 6S1B";
+                
+                createMonthTabs();
+                switchMonth(Object.keys(currentStudentData.months)[0]);
+                document.getElementById('error').style.display = 'none';
+            } else { 
+                document.getElementById('error').style.display = 'block'; 
+            }
+        }
+
+        function createMonthTabs() {
+            const tabsList = document.getElementById('tabs-list');
+            tabsList.innerHTML = '';
+            Object.keys(currentStudentData.months).forEach(monthKey => {
+                const monthInfo = currentStudentData.months[monthKey];
+                const button = document.createElement('button');
+                button.className = 'tab-btn';
+                button.id = 'btn-' + monthKey;
+                button.innerText = monthInfo.label.split('/')[0];
+                button.onclick = () => switchMonth(monthKey);
+                tabsList.appendChild(button);
+            });
+        }
+
+        function switchMonth(monthKey) {
+            if (!currentStudentData) return;
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            const activeTab = document.getElementById('btn-' + monthKey);
+            if (activeTab) activeTab.classList.add('active');
+            
+            const dataTheoThang = currentStudentData.months[monthKey];
+            document.getElementById('s-score').innerText = dataTheoThang.điểm;
+            document.getElementById('s-nx').innerText = dataTheoThang.nx;
+            document.getElementById('s-kh').innerText = dataTheoThang.kh;
+        }
+    </script>
+</body>
+</html>
