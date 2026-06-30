@@ -106,7 +106,7 @@
             gap: 25px;
         }
 
-        /* HIỆU ỨNG TẦNG TRƯỢT XUẤT HIỆN KHI LOAD TRANG */
+        /* HIỆU ỨNG TRƯỢT XUẤT HIỆN KHI LOAD TRANG */
         .class-card-link {
             text-decoration: none;
             color: inherit;
@@ -148,11 +148,11 @@
             font-size: 22px;
             font-weight: 700;
             border-bottom: 1px solid #cbd5e1;
-            margin-bottom: 30px; /* Tăng khoảng cách do đã xóa note */
+            margin-bottom: 30px;
             transition: all 0.3s ease;
         }
 
-        /* KHI KÉO CHUỘT TỚI (HOVER): Đổi sang màu XANH DƯƠNG đậm, chữ Khối đổi màu TRẮNG */
+        /* KHI KÉO CHUỘT TỚI (HOVER) */
         .class-card:hover .card-header {
             background: #1e3a8a;
             color: #ffffff;
@@ -178,7 +178,7 @@
             transition: all 0.25s ease;
         }
 
-        /* KHI KÉO CHUỘT TỚI (HOVER): Ánh lên màu XANH DƯƠNG ĐẬM theo ý bạn */
+        /* KHI KÉO CHUỘT TỚI (HOVER) */
         .class-card:hover .btn-detail {
             background-color: #1e3a8a;
             box-shadow: 0 6px 14px rgba(30, 58, 138, 0.3);
@@ -216,7 +216,6 @@
 </head>
 <body>
 
-    <!-- KHU VỰC HEADER BANNER -->
     <header>
         <div class="logo-container">
             <img src="logo-tab.png" alt="Logo Trung Tâm Thăng Long" class="brand-logo logo">
@@ -224,7 +223,6 @@
         <h1 class="welcome-text">TRUNG TÂM THĂNG LONG KÍNH CHÀO QUÝ PHỤ HUYNH</h1>
     </header>
 
-    <!-- KHU VỰC NỘI DUNG CHƯƠNG TRÌNH ĐÀO TẠO -->
     <main>
         <div class="section-title-wrapper">
             <h2 class="section-title">Chương Trình Đào Tạo</h2>
@@ -232,7 +230,6 @@
         
         <div class="grid-container">
             
-            <!-- KHỐI 6 -->
             <a href="khoi6.html" target="_blank" class="class-card-link">
                 <div class="class-card">
                     <div class="card-header">Khối 6</div>
@@ -242,7 +239,6 @@
                 </div>
             </a>
 
-            <!-- KHỐI 7 -->
             <a href="khoi7.html" target="_blank" class="class-card-link">
                 <div class="class-card">
                     <div class="card-header">Khối 7</div>
@@ -252,7 +248,6 @@
                 </div>
             </a>
 
-            <!-- KHỐI 8 -->
             <a href="khoi8.html" target="_blank" class="class-card-link">
                 <div class="class-card">
                     <div class="card-header">Khối 8</div>
@@ -262,7 +257,6 @@
                 </div>
             </a>
 
-            <!-- KHỐI 9 -->
             <a href="khoi9.html" target="_blank" class="class-card-link">
                 <div class="class-card">
                     <div class="card-header">Khối 9</div>
@@ -275,19 +269,15 @@
         </div>
     </main>
 
-    <!-- CHÂN TRANG -->
     <footer>
         <p>&copy; 2026 Trung Tâm Giáo Dục Thăng Long. All rights reserved.</p>
     </footer>
 
-    <!-- SCRIPT HIỆU ỨNG TẦNG TẦNG XUẤT HIỆN -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const cards = document.querySelectorAll('.class-card-link');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('layer-visible');
-                }, index * 100);
+            cards.forEach((card) => {
+                card.classList.add('layer-visible');
             });
         });
     </script>
