@@ -1,0 +1,68 @@
+.folder-link {
+    text-decoration: none;
+    display: block;
+    margin: 20px auto;
+    max-width: 450px;
+}
+
+.folder-card {
+    background: #eef2f7;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 6px 6px 12px #d1d9e6, -6px -6px 12px #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Biểu tượng thư mục màu vàng sáng nổi bật */
+.folder-icon {
+    font-size: 35px;
+    background: #eef2f7;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    box-shadow: inset 3px 3px 6px #d1d9e6, inset -3px -3px 6px #ffffff;
+    /* Hiệu ứng lọc màu để thư mục có màu vàng hổ phách/vàng rực rỡ */
+    filter: drop-shadow(0px 2px 4px rgba(218, 165, 32, 0.3));
+}
+
+.folder-info {
+    flex: 1;
+    text-align: left;
+}
+
+.folder-name {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a365d;
+}
+
+.folder-desc {
+    display: block;
+    font-size: 12px;
+    color: #718096;
+    margin-top: 4px;
+}
+
+.folder-arrow {
+    font-size: 14px;
+    color: #718096;
+}
+
+/* Hiệu ứng di chuột tương tác mượt mà */
+.folder-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 8px 8px 16px #c4cddb, -8px -8px 16px #ffffff;
+}
+
+.folder-card:hover .folder-name {
+    color: #cc9900; /* Đổi chữ sang màu vàng gold khi hướng chuột vào */
+}
