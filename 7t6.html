@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Tra Cứu Lớp 7T6 - Trung Tâm Thăng Long</title>
+    <link rel="icon" type="image/png" href="logo-tab.png">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+        }
+
+        body { 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background-color: #e5ecf4; 
+            padding: 24px; 
+        }
+
+        .container-wrapper { 
+            width: 100%; 
+            max-width: 440px; 
+            text-align: center; 
+        }
+
+        .brand-section { 
+            margin-bottom: 25px; 
+        }
+
+        .brand-logo { 
+            width: 100px; 
+            height: 100px; 
+            object-fit: cover; 
+            border-radius: 50%; 
+            background: #e5ecf4; 
+            padding: 6px; 
+            box-shadow: 
+                6px 6px 12px #c2cbd6, 
+                -6px -6px 12px #ffffff;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.08);
+        }
+
+        .brand-name { 
+            font-size: 18px; 
+            font-weight: 700; 
+            color: #2c3e50; 
+            margin-top: 15px; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+        }
+
+        .login-card { 
+            background: #e5ecf4; 
+            border-radius: 28px; 
+            padding: 40px 30px; 
+            box-shadow: 
+                9px 9px 18px #c2cbd6, 
+                -9px -9px 18px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: left; 
+        }
+
+        .login-title { 
+            font-size: 26px; 
+            font-weight: 800; 
+            color: #1a365d; 
+            margin-bottom: 6px; 
+            text-align: center; 
+            text-transform: uppercase;
+        }
+
+        .login-subtitle { 
+            font-size: 14px; 
+            color: #606f7b; 
+            margin-bottom: 25px; 
+            text-align: center; 
+            font-weight: 600; 
+        }
+
+        .input-group { 
+            margin-bottom: 20px; 
+        }
+
+        .input-group label { 
+            display: block; 
+            font-size: 14px; 
+            font-weight: 700; 
+            color: #4a5568; 
+            margin-bottom: 8px; 
+        }
+
+        .input-group input { 
+            width: 100%; 
+            padding: 14px 16px; 
+            font-size: 15px; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            border-radius: 12px; 
+            color: #334155; 
+            outline: none; 
+            background: #e5ecf4; 
+            box-shadow: 
+                inset 4px 4px 6px #c2cbd6, 
+                inset -4px -4px 6px #ffffff;
+            transition: all 0.3s ease; 
+        }
+
+        .input-group input:focus { 
+            border-color: #3182ce; 
+            box-shadow: 
+                inset 2px 2px 4px #c2cbd6, 
+                inset -2px -2px 4px #ffffff,
+                0 0 0 3px rgba(49, 130, 206, 0.2); 
+        }
+
+        .btn-submit { 
+            width: 100%; 
+            padding: 15px; 
+            background: #e5ecf4; 
+            color: #1a365d; 
+            border: 1px solid rgba(255, 255, 255, 0.7); 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            text-align: center; 
+            box-shadow: 
+                5px 5px 10px #c2cbd6, 
+                -5px -5px 10px #ffffff;
+            transition: all 0.25s ease; 
+        }
+
+        .btn-submit:hover { 
+            color: #2b6cb0;
+            transform: translateY(-2px); 
+            box-shadow: 
+                7px 7px 14px #b8c2cc, 
+                -7px -7px 14px #ffffff;
+        }
+
+        .btn-submit:active {
+            transform: translateY(1px);
+            box-shadow: 
+                inset 4px 4px 8px #c2cbd6, 
+                inset -4px -4px 8px #ffffff;
+        }
+
+        .container { 
+            max-width: 480px; 
+            width: 100%; 
+            background: #e5ecf4; 
+            padding: 35px 25px; 
+            border-radius: 28px; 
+            box-shadow: 
+                9px 9px 18px #c2cbd6, 
+                -9px -9px 18px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: none; 
+            text-align: left; 
+            animation: slideUp 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-title { 
+            color: #1a365d; 
+            text-align: center; 
+            margin-bottom: 25px; 
+            font-size: 21px; 
+            text-transform: uppercase; 
+            font-weight: 800; 
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .month-tabs-container {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            scrollbar-width: thin;
+        }
+
+        .month-tabs {
+            display: flex;
+            gap: 10px;
+            width: max-content;
+            padding: 4px;
+        }
+
+        .tab-btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #4a5568;
+            background: #e5ecf4;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 
+                3px 3px 6px #c2cbd6, 
+                -3px -3px 6px #ffffff;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: #3182ce;
+            box-shadow: 
+                inset 3px 3px 5px #c2cbd6, 
+                inset -3px -3px 5px #ffffff;
+            border-color: rgba(49, 130, 206, 0.2);
+        }
+
+        .student-info { 
+            background: #e5ecf4; 
+            padding: 20px; 
+            border-radius: 16px; 
+            margin-bottom: 25px; 
+            box-shadow: 
+                inset 4px 4px 8px #c2cbd6, 
+                inset -4px -4px 8px #ffffff;
+        }
+
+        .info-item { 
+            font-size: 15px; 
+            margin-bottom: 10px; 
+            color: #4a5568;
+            font-weight: 500;
+        }
+        .info-item:last-child { margin-bottom: 0; }
+        .info-item strong { 
+            color: #1a365d; 
+            font-weight: 700;
+        }
+
+        .score-table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 4px 4px 10px #c2cbd6, -4px -4px 10px #ffffff;
+        }
+
+        .score-table {
+            width: 100%;
+            min-width: 720px;
+            border-collapse: collapse;
+            background: #e5ecf4;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .score-table th {
+            background: #1a365d;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 10px 6px;
+            border: 1px solid #c2cbd6;
+            font-size: 12px;
+        }
+
+        .score-table td {
+            padding: 12px 6px;
+            border: 1px solid #c2cbd6;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .score-table .test-name {
+            min-width: 135px;
+            text-align: left;
+            padding-left: 12px;
+            color: #1a365d;
+            font-weight: 700;
+        }
+
+        .comment-section { 
+            background: #e5ecf4; 
+            border-left: 5px solid #3182ce; 
+            padding: 18px; 
+            margin-bottom: 20px; 
+            border-radius: 4px 16px 16px 4px; 
+            box-shadow: 
+                5px 5px 12px #c2cbd6, 
+                -5px -5px 12px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .comment-title { 
+            font-weight: 700; 
+            color: #1a365d; 
+            margin-bottom: 6px; 
+            text-transform: uppercase; 
+            font-size: 13px; 
+            letter-spacing: 0.5px;
+        }
+
+        .comment-section p {
+            font-size: 14.5px;
+            color: #4a5568;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .back-btn { 
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px; 
+            color: #e53e3e; 
+            background: rgba(229, 62, 62, 0.05);
+            padding: 10px 24px;
+            border-radius: 12px;
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 14px;
+            transition: all 0.2s;
+            box-shadow: 
+                3px 3px 6px #c2cbd6, 
+                -3px -3px 6px #ffffff;
+        }
+        .back-btn:hover {
+            background: rgba(229, 62, 62, 0.1);
+            transform: translateY(-1px);
+            box-shadow: 
+                4px 4px 8px #b8c2cc, 
+                -4px -4px 8px #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-wrapper" class="container-wrapper">
+        <div class="brand-section">
+            <img src="./logo-tab.png" alt="Logo Trung Tâm Thăng Long" class="brand-logo">
+            <div class="brand-name">TRUNG TÂM THĂNG LONG</div>
+        </div>
+        <div class="login-card">
+            <h2 class="login-title">Hệ Thống Tra Cứu</h2>
+            <p class="login-subtitle">Mã lớp học: 7T6</p>
+            <div class="input-group">
+                <label>Tên đăng nhập:</label>
+                <input type="text" id="username" placeholder="Nhập đầy đủ họ tên học sinh">
+            </div>
+            <div class="input-group">
+                <label>Mật khẩu:</label>
+                <input type="password" id="password" placeholder="Nhập số điện thoại đăng ký">
+            </div>
+            <button class="btn-submit" onclick="checkLogin()">Đăng nhập hệ thống</button>
+            <p id="error" style="color: #e53e3e; font-size: 14px; margin-top: 15px; text-align: center; display: none; font-weight: 700;">Tên học sinh hoặc mật khẩu không chính xác!</p>
+            
+            <center><a href="khoi7.html" style="display:inline-block; margin-top:25px; color:#606f7b; text-decoration:none; font-size:14px; font-weight:600;">⬅ Quay lại chọn lớp</a></center>
+        </div>
+    </div>
+
+    <div id="content-area" class="container">
+        <h1 class="header-title" id="dynamic-title">Kết Quả Học Tập Lớp 7T6</h1>
+        
+        <div class="month-tabs-container">
+            <div class="month-tabs" id="tabs-list"></div>
+        </div>
+
+        <div class="student-info">
+            <div class="info-item"><strong>Họ và tên học sinh:</strong> <span id="s-name" style="color: #2b6cb0; font-weight: bold;"></span></div>
+            <div class="info-item"><strong>Lớp học tại trung tâm:</strong> Lớp Toán 7T6</div>
+        </div>
+
+        <div class="score-table-wrapper">
+            <table class="score-table">
+                <thead>
+                    <tr>
+                        <th>LOẠI KIỂM TRA</th>
+                        <th>TRẮC NGHIỆM<br>NHIỀU LỰA CHỌN</th>
+                        <th>TRẮC NGHIỆM<br>ĐÚNG – SAI</th>
+                        <th>TRẢ LỜI NGẮN</th>
+                        <th>TỰ LUẬN</th>
+                        <th>TỔNG</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="test-name">Bài test hè</td>
+                        <td id="he-tn">-</td>
+                        <td id="he-ds">-</td>
+                        <td id="he-ngan">-</td>
+                        <td id="he-tl">-</td>
+                        <td id="he-tong">-</td>
+                    </tr>
+                    <tr>
+                        <td class="test-name">Bài test giữa kì 1</td>
+                        <td id="gk1-tn">-</td>
+                        <td id="gk1-ds">-</td>
+                        <td id="gk1-ngan">-</td>
+                        <td id="gk1-tl">-</td>
+                        <td id="gk1-tong">-</td>
+                    </tr>
+                    <tr>
+                        <td class="test-name">Bài test cuối kì 1</td>
+                        <td id="ck1-tn">-</td>
+                        <td id="ck1-ds">-</td>
+                        <td id="ck1-ngan">-</td>
+                        <td id="ck1-tl">-</td>
+                        <td id="ck1-tong">-</td>
+                    </tr>
+                    <tr>
+                        <td class="test-name">Bài test giữa kì 2</td>
+                        <td id="gk2-tn">-</td>
+                        <td id="gk2-ds">-</td>
+                        <td id="gk2-ngan">-</td>
+                        <td id="gk2-tl">-</td>
+                        <td id="gk2-tong">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="comment-section">
+            <div class="comment-title">Nhận xét tình hình học tập :</div>
+            <p id="s-nx"></p>
+        </div>
+        
+        <div class="comment-section" style="border-left-color: #38a169;">
+            <div class="comment-title">Lời khuyên / Định hướng của thầy cô:</div>
+            <p id="s-kh"></p>
+        </div>
+        
+        <center><a href="javascript:location.reload();" class="back-btn">❌ Thoát xem nhận xét</a></center>
+    </div>
+
+    <script>
+        
+        const students = {
+            "nguyen phuong anh": { 
+                name: "Nguyễn Phương Anh", 
+                phone: "988383283",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ.\nNhược điểm: Hơi trầm, nhận biết vị trí các góc chưa tốt, vẽ hình chưa tốt, thực hiện phép chia số có 2 chữ số con làm sai, con hơi đuối so với lớp và chưa chủ động học lý thuyết ở nhà.",
+                        kh: "Con cần chủ động hơn, mạnh dạn hơn, cần xem lại bài trước khi đến lớp, làm thêm bài ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "nguyen viet anh": { 
+                name: "Nguyễn Việt Anh", 
+                phone: "917560919",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ.\nNhược điểm: Sửa bài còn ẩu, tập lớp tập nhà sửa bài còn sai, hình vẽ chưa tốt, nhận biết vị trí các góc không tốt, chưa chủ động học bài ở nhà, chia số có hai chữ số còn sai, phá căn không tốt, làm bài chậm so với tiến độ chung của lớp.",
+                        kh: "Con cần chú ý hơn khi giáo viên hướng dẫn bài tập ở lớp, học lý thuyết và xem bài trước khi đến lớp, rèn luyện thêm kỹ năng tính toán và vẽ hình."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "tran mai hien": { 
+                name: "Trần Mai Hiền", 
+                phone: "859876868",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ, làm được tổng ba góc, phá căn bậc hai, tìm được độ dài cạnh và số đo góc trong tam giác bằng nhau.\nNhược điểm: Hơi trầm, chưa chủ động học lý thuyết tại nhà, tìm x con làm chưa tốt, rút gọn lũy thừa chưa tốt.",
+                        kh: "Con cần chủ động hơn, mạnh dạn hơn, cần xem lại bài trước khi đến lớp, làm thêm bài ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "che huu hoang": { 
+                name: "Chế Hữu Hoàng", 
+                phone: "827276815",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ, có ý thức học tập tốt.\nNhược điểm: Viết vở ẩu, vở tập nhà làm còn sai, thường xuyên thiếu ký hiệu, tính số đo góc biết cách làm nhưng trình bày không hợp lý, chưa chủ động học lý thuyết ở nhà, còn nói chuyện trong lớp.",
+                        kh: "Con cần chủ động hơn, xem lại bài, rèn luyện tính cẩn thận, chú ý cách trình bày và học lý thuyết trước khi đến lớp."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "nguyen quoc hoang": { 
+                name: "Nguyễn Quốc Hoàng", 
+                phone: "326780682",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tiếp thu bài nhanh, ý thức học tập tốt, vở tập lớp tập nhà đầy đủ. Nhận biết góc tốt, biết tính số đo góc.\nNhược điểm: Trình bày bài và viết vở ẩu, hay sửa bài sai, chưa học lý thuyết ở nhà, vẽ hình còn ẩu.",
+                        kh: "Con cần chú ý hơn ở cách trình bày, cần cẩn thận hơn, học lý thuyết và rèn luyện thêm bài tập ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "vuong thien hung": { 
+                name: "Vương Thiên Hưng", 
+                phone: "909800567",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ, biết cách làm căn bậc hai.\nNhược điểm: Chưa thuộc lý thuyết song song, số thập phân hữu hạn, vô hạn tuần hoàn; chưa tính được số đo góc, vẽ hình chưa tốt, quên tập nhà ngày 24/6, làm bài thiếu cẩn thận.",
+                        kh: "Cần chủ động học trước lý thuyết, xem lại bài trước khi đến lớp, rèn luyện thêm bài tập ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "phan nguyen tuan khang": { 
+                name: "Phan Nguyễn Tuấn Khang", 
+                phone: "848613456",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà khá đầy đủ, ý thức học tập tốt.\nNhược điểm: Sai tổng ba góc trong một tam giác, bài làm vẫn thiếu cẩn thận, làm bài hay sai các lỗi cơ bản, phần góc con nhận biết chưa tốt lắm, chưa chủ động học lý thuyết ở nhà.",
+                        kh: "Cần chủ động hơn trong học tập, học lý thuyết và rèn luyện thêm bài tập ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "duong dang khoa": { 
+                name: "Dương Đăng Khoa", 
+                phone: "977603873",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, ý thức học tập tốt, con hay phát biểu xây dựng bài, tiếp thu bài khá nhanh, tập lớp tập nhà đầy đủ.\nNhược điểm: Làm phần góc chưa tốt, hay sai lặt vặt, cần chú ý cách trình bày và học lý thuyết trước khi đến lớp.",
+                        kh: "Con cần chủ động học bài trước khi đến lớp, cần cẩn thận hơn khi làm bài, rèn luyện thêm phần hình."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "nguyen thi khanh linh": { 
+                name: "Nguyễn Thị Khánh Linh", 
+                phone: "982023220",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ, rõ ràng, làm tốt phần góc, vẽ hình khá tốt.\nNhược điểm: Cần chủ động học lý thuyết trước khi đến lớp.",
+                        kh: "Cần phát huy tinh thần học tập, học lý thuyết trước khi đến lớp."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "nguyen tien minh": { 
+                name: "Nguyễn Tiến Minh", 
+                phone: "934434456",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ.\nNhược điểm: Tổng ba góc làm sai, vị trí của các góc làm chưa tốt, chưa tìm được số đo góc, chưa chủ động học lý thuyết ở nhà.",
+                        kh: "Cần chủ động hơn, làm bài cẩn thận hơn, rèn luyện thêm về phần hình học, học lý thuyết và xem lại bài trước khi đến lớp."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "truong nguyen bao ngoc": { 
+                name: "Trương Nguyễn Bảo Ngọc", 
+                phone: "908829527",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, ý thức học tập tốt, tập lớp tập nhà đầy đủ, phần số con làm khá tốt, nhận biết được vị trí các góc.\nNhược điểm: Tính toán còn ẩu, vẽ hình còn sai, chưa chủ động học lý thuyết ở nhà.",
+                        kh: "Con cần phát huy tinh thần học tập, chú ý tính toán cẩn thận hơn."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "vo quoc thien nhan": { 
+                name: "Võ Quốc Thiện Nhân", 
+                phone: "387387105",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ, có ý thức học tập.\nNhược điểm: Sửa bài sai, ẩu, tam giác mà đổi ký hiệu góc, xác định vị trí các góc chưa tốt, khả năng tiếp thu bài hơi chậm so với lớp, chưa chủ động học lý thuyết.",
+                        kh: "Con cần cố gắng nhiều hơn, rèn luyện nhiều hơn về phần hình, đo góc, vẽ góc, nhận diện vị trí các góc, chủ động xem lại bài và học lý thuyết trước khi đến lớp."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "huynh xuan phuc": { 
+                name: "Huỳnh Xuân Phúc", 
+                phone: "848198979",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, có sự cố gắng, tập lớp tập nhà đầy đủ, đã nhận biết được vị trí các góc, biết thực hiện các phép tính liên quan đến số hữu tỉ, số thập phân.\nNhược điểm: Phần lũy thừa làm không tốt, chưa học thuộc lý thuyết trước khi đến lớp.",
+                        kh: "Học thuộc bảng bình phương các số tự nhiên từ 1 đến 20, học lý thuyết và rèn luyện bài tập thêm khi ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "pham minh quang": { 
+                name: "Phạm Minh Quang", 
+                phone: "989146033",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, học thuộc nhanh, làm bài khá ổn, tập lớp tập nhà đầy đủ.\nNhược điểm: Chưa chủ động học bài ở nhà, dễ bị mất tập trung, nói chuyện trong lớp.",
+                        kh: "Cần chủ động hơn, rèn luyện tính cẩn thận, làm bài thêm ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "nghiem nhu quynh": { 
+                name: "Nghiêm Như Quỳnh", 
+                phone: "986024544",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, ý thức học tập tốt, tập lớp tập nhà đầy đủ.\nNhược điểm: Tam giác bằng nhau xác định hai cạnh tương ứng, hai góc tương ứng chưa tốt, vị trí các góc còn nhầm lẫn, vẽ hình chưa chuẩn lắm, chưa học lý thuyết trước khi đến lớp.",
+                        kh: "Cần phát huy tinh thần học tập, rèn luyện thêm phần hình, cần học lý thuyết ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "nguyen thanh trang": { 
+                name: "Nguyễn Thanh Trang", 
+                phone: "909765586",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ, tiếp thu bài ổn, xác định được vị trí các góc.\nNhược điểm: Sửa bài còn ẩu, thiếu giải thích, chưa chủ động học lý thuyết tại nhà.",
+                        kh: "Cần cố gắng phát huy tinh thần học tập, chủ động học lý thuyết và xem lại bài trước khi đến lớp."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "doan tran ngoc anh": { 
+                name: "Đoàn Trần Ngọc Anh", 
+                phone: "975657342",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà hoàn thành đầy đủ, rõ ràng, biết phá căn bậc 2, viết một số dưới dạng một lũy thừa, biết cách đo và vẽ góc, nhận biết được góc so le trong, đồng vị.\nNhược điểm: Cộng trừ số thập phân còn sai, xác định vị trí các góc chưa tốt, số hữu tỉ làm chưa tốt.",
+                        kh: "Con cần học lý thuyết ở nhà trước khi đến lớp, rèn luyện và chú ý khi thực hiện các phép tính liên quan đến số thập phân, cần ôn lại bài trước khi đến lớp."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "nguyen hoang lam": { 
+                name: "Nguyễn Hoàng Lâm", 
+                phone: "362725760",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, tập lớp tập nhà đầy đủ, ý thức học tập tốt, làm bài và tiếp thu bài khá nhanh. Biết phá căn, nhận biết được số hữu tỉ, vô tỉ.\nNhược điểm: Phần góc chưa tốt, đọc tên góc còn sai, vị trí các góc còn nhầm, chưa chủ động học lý thuyết tại nhà.",
+                        kh: "Con cần chủ động học lý thuyết, rèn luyện thêm về phần hình học."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "tran tung quan": { 
+                name: "Trần Tùng Quân", 
+                phone: "889152535",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, ý thức học tập tốt, tập lớp tập nhà đầy đủ, nhận biết được vị trí các góc, tính được số đo góc, biết cách vẽ hình.\nNhược điểm: Còn ẩu, biết bài và sửa bài chậm, đọc tên góc chưa tốt, vẽ hình chưa chuẩn, tính toán rất vội vàng, chưa chủ động học lý thuyết tại nhà, vẽ tia phân giác chưa tốt, hay làm tắt.",
+                        kh: "Con cần tập trung hơn, chú ý khi tính toán, cần chủ động học lý thuyết trước khi đến lớp, rèn luyện thêm bài tập ở nhà."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "nguyen minh triet": { 
+                name: "Nguyễn Minh Triết", 
+                phone: "975609357",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, ý thức học tập khá tốt, tập lớp tập nhà đầy đủ.\nNhược điểm: Rất mất tập trung, ngồi trong lớp hay chọc bạn, làm việc riêng, giáo viên nhắc nhở rất nhiều lần; thường xuyên viết sai đề, không chấm bài, có tình trạng trốn về; quan hệ song song con làm không tốt, vẽ hình không chuẩn, thiếu cẩn thận, lười học lý thuyết tại nhà, chưa xác định được cạnh bằng nhau, góc bằng nhau trong tam giác bằng nhau.",
+                        kh: "Con cần tập trung nghe giảng, học bài trước khi đến lớp, học lý thuyết tại nhà, rèn luyện thêm tính tự giác và cẩn thận."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            },
+            "phan minh trung": { 
+                name: "Phan Minh Trung", 
+                phone: "902305721",
+                bangDiem: {
+                    kiemTraHe: { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    cuoiKi1:   { tn: "", ds: "", ngan: "", tl: "", tong: "" },
+                    giuaKi2:   { tn: "", ds: "", ngan: "", tl: "", tong: "" }
+                },
+                months: {
+                    "thang06_07": {
+                        label: "Tháng 06 và 07/2026",
+                        nx: "Ưu điểm: Ngoan, ý thức học tập tốt, tập lớp tập nhà khá đầy đủ, số hữu tỉ làm khá tốt.\nNhược điểm: Vở viết ẩu, sửa bài còn sai, vẽ hình chưa chuẩn, phần góc làm chưa tốt, tính toán còn ẩu, tìm x làm còn sai, chưa chủ động học lý thuyết tại nhà, quên tập nhà ngày 8/7 và 20/7.",
+                        kh: "Cần chủ động học lý thuyết ở nhà, rèn luyện kỹ năng tính toán, làm thêm bài tập và học bài trước khi đến lớp."
+                    },
+                    "thang08": {
+                        label: "Tháng 08/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang09": {
+                        label: "Tháng 09/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang10": {
+                        label: "Tháng 10/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang11": {
+                        label: "Tháng 11/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang12": {
+                        label: "Tháng 12/2026",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang01": {
+                        label: "Tháng 01/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang02": {
+                        label: "Tháng 02/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang03": {
+                        label: "Tháng 03/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang04": {
+                        label: "Tháng 04/2027",
+                        nx: "",
+                        kh: ""
+                    },
+                    "thang05": {
+                        label: "Tháng 05/2027",
+                        nx: "",
+                        kh: ""
+                    }
+                }
+            }
+        };
+
+        let currentStudentData = null;
+
+        function locDau(str) {
+            str = str.toLowerCase().trim();
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
+            str = str.replace(/đ/g,"d");
+            str = str.replace(/\s+/g, ' ');
+            return str;
+        }
+
+        function checkLogin() {
+            const uInput = document.getElementById('username').value;
+            const pInput = document.getElementById('password').value.trim();
+            const uKey = locDau(uInput);
+            
+            if (students[uKey] && pInput === students[uKey].phone) {
+                confetti({ particleCount: 125, spread: 80, origin: { y: 0.6 } }); 
+                currentStudentData = students[uKey];
+                
+                document.getElementById('login-wrapper').style.setProperty('display', 'none', 'important');
+                document.getElementById('content-area').style.display = 'block';
+                document.body.style.background = "#e5ecf4";
+                document.getElementById('s-name').innerText = currentStudentData.name;
+                
+                document.getElementById('dynamic-title').innerText = "Kết Quả Học Tập " + currentStudentData.name + " - Lớp 7T6";
+                
+                createMonthTabs();
+                switchMonth('thang06_07');
+                document.getElementById('error').style.display = 'none';
+            } else { 
+                document.getElementById('error').style.display = 'block'; 
+            }
+        }
+
+        function createMonthTabs() {
+            const tabsList = document.getElementById('tabs-list');
+            tabsList.innerHTML = '';
+            Object.keys(currentStudentData.months).forEach(monthKey => {
+                const monthInfo = currentStudentData.months[monthKey];
+                const button = document.createElement('button');
+                button.className = 'tab-btn';
+                button.id = 'btn-' + monthKey;
+                button.innerText = monthInfo.label.split('/')[0];
+                button.onclick = () => switchMonth(monthKey);
+                tabsList.appendChild(button);
+            });
+        }
+
+        function switchMonth(monthKey) {
+            if (!currentStudentData) return;
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            const activeTab = document.getElementById('btn-' + monthKey);
+            if (activeTab) activeTab.classList.add('active');
+            
+            const dataTheoThang = currentStudentData.months[monthKey];
+                        const bangDiem = currentStudentData.bangDiem || {};
+
+            function hienThiHang(prefix, duLieu) {
+                duLieu = duLieu || {};
+                document.getElementById(prefix + '-tn').innerText = duLieu.tn || "-";
+                document.getElementById(prefix + '-ds').innerText = duLieu.ds || "-";
+                document.getElementById(prefix + '-ngan').innerText = duLieu.ngan || "-";
+                document.getElementById(prefix + '-tl').innerText = duLieu.tl || "-";
+                document.getElementById(prefix + '-tong').innerText = duLieu.tong || "-";
+            }
+
+            hienThiHang('he', bangDiem.kiemTraHe);
+            hienThiHang('gk1', bangDiem.giuaKi1);
+            hienThiHang('ck1', bangDiem.cuoiKi1);
+            hienThiHang('gk2', bangDiem.giuaKi2);
+
+document.getElementById('s-nx').innerText = dataTheoThang.nx || "Chưa có nhận xét cho tháng này.";
+            document.getElementById('s-kh').innerText = dataTheoThang.kh || "Chưa có định hướng định kỳ.";
+        }
+    </script>
+</body>
+</html>
